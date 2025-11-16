@@ -1,2 +1,24 @@
-# to run at the root directory of the project
-gcc ./src/main/spellcheck/spellcheck.cpp ./src/main/dictionary/dictionary.cpp ./src/helpers/get_string/get_string.cpp ./src/helpers/get_word/get_word.cpp ./src/helpers/case_fold/case_fold.cpp ./src/helpers/handle_unexpected_nullptr/handle_unexpected_nullptr.cpp ./src/helpers/utf8_strlen/utf8_strlen.cpp -lstdc++ -o ./bin/main -O3
+#!/bin/bash
+set -e
+
+# Directories
+BUILD_DIR=bin
+BIN_DIR=$BUILD_DIR/
+OBJ_DIR=$BUILD_DIR/obj
+
+mkdir -p "$OBJ_DIR"
+
+# Compile all cpp files
+SRC_FILES=$(find src -name "*.cpp")
+
+for src in $SRC_FILES; do
+    obj="$OBJ_DIR/$(basename ${src%.*}).o"
+    echo "Compiling $src -> $obj"
+    g++ -std=c++17 -Wall -Wextra -O2 -c "$src" -o "$obj"
+done
+
+# Link
+echo "Linking..."
+g++ "$OBJ_DIR"/*.o -o "$BIN_DIR/main"
+
+echo "Build complete: $BIN_DIR/main"
