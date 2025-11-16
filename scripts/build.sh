@@ -1,0 +1,2 @@
+# to run at the root directory of the project
+gcc ./src/main/spellcheck/spellcheck.cpp ./src/main/dictionary/dictionary.cpp ./src/helpers/get_string/get_string.cpp ./src/helpers/get_word/get_word.cpp ./src/helpers/case_fold/case_fold.cpp ./src/helpers/handle_unexpected_nullptr/handle_unexpected_nullptr.cpp ./src/helpers/utf8_strlen/utf8_strlen.cpp -lstdc++ -o ./bin/main -O3

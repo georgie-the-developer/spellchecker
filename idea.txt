@@ -1,0 +1,27 @@
+The program is ment to check multiple files for word spelling correctness.
+
+You run it with: "./main", then the program shows wether the internal dictionary was loaded or not, if it was successfully loaded, it prompts you with "Provide a filepath: ".
+If you provide "somefile.txt" as addictional argument, it loads it as a custom dictionary instead. So that you can spellcheck files in different languages. The default 
+language is English.
+
+When you enter a path, it spellchecks the file (if it exists) and returns positions (line number, start char pos on that line) of the words that were misspelled or prints 
+"Text does not contain any misspellings\n".
+If there are more than 100 misspellings it outputs the first 100 and at the end it prints "More were misspelled, but were hidden in order
+not to overflow the console\n".
+
+At the end of each spellcheck it prints out overall misspellings count and how much time the spellchecking took.
+
+It can be used multiple times.
+
+It can be exited with "exit" command (user is notified about it after each successful spellcheck).
+
+
+
+Step-by-step:
+
+1. Load dictionary. If a file provided, load from it instead. If its not found, return file not found exception.
+If failed to load from existing file, return an exception: "Is empty" if file is empty, "Failed to load" if unknown load failure occurred.
+2. Spellcheck file word by word, while keeping track of lines and char positions. If file not found, print "File not found"
+If file is empty, print "File is empty, nothing to check"
+3. Print out the result: Number of words misspelled, number of total words
+4. Continue over until user types in "exit"

@@ -1,0 +1,8 @@
+- make get_word case-insensitive for unicode characters:
+
+  - reimplement the get_word function
+  - parse case_folding.txt once and store it in a hashmap
+
+- make the program windows-compatible
+
+- consider adding the autocorrect feature

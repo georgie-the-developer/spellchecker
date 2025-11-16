@@ -1,0 +1,21 @@
+{
+  "files.associations": {
+    "dictionary.h": "c",
+    "spellcheck.h": "c",
+    "string": "cpp",
+    "unordered_map": "cpp",
+    "vector": "cpp",
+    "functional": "cpp",
+    "memory": "cpp",
+    "string_view": "cpp",
+    "system_error": "cpp",
+    "iostream": "cpp",
+    "istream": "cpp",
+    "new": "cpp",
+    "ostream": "cpp",
+    "typeinfo": "cpp",
+    "atomic": "cpp",
+    "cstdint": "cpp",
+    "random": "cpp"
+  }
+}
