@@ -1,33 +1,55 @@
-# Compiler and flags
-CXX := g++
-CXXFLAGS := -std=c++17 -Wall -Wextra -O2
-
-# Executable name (Linux: bin/main, Windows: bin/main.exe)
-TARGET := bin/main
+# Detect OS
 ifeq ($(OS),Windows_NT)
-    TARGET := bin/main.exe
+    EXE_EXT := .exe
+    OBJ_DIR := bin\obj
+    BIN_DIR := bin
+    CC := cl
+    CFLAGS := /nologo /W3 /EHsc
+    OBJ_EXT := .obj
+else
+    EXE_EXT :=
+    OBJ_DIR := bin/obj
+    BIN_DIR := bin
+    CC := g++
+    CFLAGS := -std=c++17 -Wall -Wextra -O2
+    OBJ_EXT := .o
 endif
 
-# Find all .cpp files recursively
-SRC := $(shell find src -name '*.cpp')
+# Source files
+SRC := $(shell find src -name "*.cpp")
+OBJ := $(patsubst src/%.cpp,$(OBJ_DIR)/%$(OBJ_EXT),$(SRC))
 
-# Convert each src/*.cpp → bin/obj/src/*.o
-OBJ := $(SRC:src/%.cpp=bin/obj/%.o)
+# Default target
+all: $(BIN_DIR)/main$(EXE_EXT)
 
-# Default rule
-all: $(TARGET)
+# Create directories if missing
+$(BIN_DIR):
+	mkdir -p $(BIN_DIR)
 
-# Link step
-$(TARGET): $(OBJ)
-	$(CXX) $(OBJ) -o $(TARGET)
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
 
-# Build rule for each .o
-bin/obj/%.o: src/%.cpp
-	@mkdir -p $(dir $@)
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+# Compile objects
+$(OBJ_DIR)/%$(OBJ_EXT): src/%.cpp | $(OBJ_DIR)
+ifeq ($(CC),cl)
+	cl /c /Fo$@ $< $(CFLAGS)
+else
+	$(CC) $(CFLAGS) -c $< -o $@
+endif
 
-# Cleanup
+# Link
+$(BIN_DIR)/main$(EXE_EXT): $(OBJ) | $(BIN_DIR)
+ifeq ($(CC),cl)
+	cl $(CFLAGS) $(OBJ) /Fe:$@
+else
+	$(CC) $(OBJ) -o $@
+endif
+
+# Clean
 .PHONY: clean
 clean:
-	rm -rf bin/obj
-	rm -f bin/main bin/main.exe
+ifeq ($(CC),cl)
+	del /Q $(OBJ_DIR)\*$(OBJ_EXT) $(BIN_DIR)\main$(EXE_EXT)
+else
+	rm -rf $(OBJ_DIR)/*.o $(BIN_DIR)/main$(EXE_EXT)
+endif
