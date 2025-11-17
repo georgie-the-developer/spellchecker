@@ -3,8 +3,8 @@ Is responsible for:
 
 - receciving command-line arguments // done
 - checking if not too much arguments provided // done
-- calling load() (dictionary.h) function on dictionary file // done
-- outputting how much time it took to load the dictionary // done
+- calling load_dict() (dictionary.h) function on dictionary file // done
+- outputting how much time it took to load_dict the dictionary // done
 - prompting user for a file to spellcheck (should be implemented with loop logic) // done
 
 - asking if the user wants to use a word suggestion feature on misspelled words (optional; y/n only)

@@ -7,7 +7,8 @@
 const char *DEFAULT_DICTIONARY_FILENAME = "../spellchecker/resources/default_dictionary.txt";
 const int HASH_SIZE = 100000;
 struct hashtable_entry *hashtable[HASH_SIZE];
-void load(const char *filename)
+
+void load_dict(const char *filename)
 {
     FILE *file = fopen(filename, "rb");
     char *word;
@@ -26,9 +27,9 @@ void load(const char *filename)
     print_dict();
 }
 
-void load()
+void load_dict()
 {
-    load(DEFAULT_DICTIONARY_FILENAME);
+    load_dict(DEFAULT_DICTIONARY_FILENAME);
 }
 
 bool check(char *word)

@@ -27,16 +27,16 @@ int main(int argc, char **argv)
         printf("Too many arguments provided\n");
         return 1;
     }
-    load_casefold_table(); // load a casefold table
-    // call load on dictionary file
+    load_casefold_table(); // load_dict a casefold table
+    // call load_dict on dictionary file
     begin = clock();
     if (argc == 2)
     {
-        load(argv[1]); // load custom dictionary
+        load_dict(argv[1]); // load_dict custom dictionary
     }
     else
     {
-        load(); // load default dictionary
+        load_dict(); // load_dict default dictionary
     }
     end = clock();
     dictionary_load_time = (double)(end - begin) / CLOCKS_PER_SEC * 1000;
@@ -69,7 +69,7 @@ int main(int argc, char **argv)
 
 bool spellcheck(char *filename)
 {
-    // load file
+    // load_dict file
     bool correct = false;
     int word_count = 0;
     int error_count = 0;

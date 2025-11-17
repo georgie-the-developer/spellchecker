@@ -30,8 +30,8 @@ struct checkResult
     int *word;
 };
 /* !! OVERLOADING EXAMPLE !! */
-void load(const char *filename); // loads a custom dictionary into RAM
-void load();
+void load_dict(const char *filename); // loads a custom dictionary into RAM
+void load_dict();
 void free_dict(void);
 
 void store(char *word);
