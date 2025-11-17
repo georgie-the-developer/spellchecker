@@ -94,7 +94,7 @@ bool spellcheck(char *filename)
         {
             if (error_count <= MAX_ERROR_COUNT)
             {
-                printf("Misspelling at line %d, character %d: %s\n", line, col - utf8_strlen(word), word);
+                printf("Misspelling at line %d, col %d: %s\n", line, col - utf8_strlen(word), word);
             }
             error_count++;
         }
