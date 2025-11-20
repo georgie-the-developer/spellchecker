@@ -85,6 +85,8 @@ char *get_word(FILE *file, int *line, int *col)
     // word-related
     int capacity = 1;
     char *word = (char *)malloc(capacity);
+    // check if the word pointer is valid
+    handle_unexpected_nullptr(word, "malloc");
     // check if the file pointer is valid
     handle_unexpected_nullptr(file, "filesystem");
 
