@@ -56,6 +56,8 @@ int main(int argc, char **argv)
         printf("\n");
         begin = clock();
         result = spellcheck(filename);
+        if (!result)
+            continue;
         end = clock();
         free(filename);
         printf("\n");
@@ -81,7 +83,6 @@ bool spellcheck(char *filename)
     if (file == NULL)
     {
         perror("Failed to open the file");
-        fclose(file);
         return false;
     }
 
