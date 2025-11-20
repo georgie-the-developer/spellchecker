@@ -1,7 +1,11 @@
 #include "./case_fold.h"
 #include "../handle_unexpected_nullptr/handle_unexpected_nullptr.h"
 
+#ifdef _WIN32
+const char *CASEFOLD_FILE = "..\\spellchecker\\src\\helpers\\case_fold\\case_folding.txt";
+#else
 const char *CASEFOLD_FILE = "../spellchecker/src/helpers/case_fold/case_folding.txt";
+#endif
 
 static const short CASEFOLD_TABLE_SIZE = 1000;
 static folded_record *casefold_table[CASEFOLD_TABLE_SIZE];

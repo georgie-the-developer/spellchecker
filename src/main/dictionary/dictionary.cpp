@@ -4,7 +4,12 @@
 
 #include "../../helpers/get_word/get_word.h"
 
+#ifdef _WIN32
+const char *DEFAULT_DICTIONARY_FILENAME = "..\\spellchecker\\resources\\default_dictionary.txt";
+#else
 const char *DEFAULT_DICTIONARY_FILENAME = "../spellchecker/resources/default_dictionary.txt";
+#endif
+
 const int HASH_SIZE = 100000;
 struct hashtable_entry *hashtable[HASH_SIZE];
 
