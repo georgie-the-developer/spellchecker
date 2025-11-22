@@ -1,4 +1,4 @@
-static int detect_utf8_length(unsigned char c)
+int detect_utf8_length(unsigned char c)
 {
     if ((c & 0x80) == 0x00)
         return 1;

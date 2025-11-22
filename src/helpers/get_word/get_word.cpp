@@ -1,18 +1,5 @@
 #include "./get_word.h"
 
-static int detect_utf8_length(unsigned char c)
-{
-    if ((c & 0x80) == 0x00)
-        return 1;
-    else if ((c & 0xE0) == 0xC0)
-        return 2;
-    else if ((c & 0xF0) == 0xE0)
-        return 3;
-    else if ((c & 0xF8) == 0xF0)
-        return 4;
-    return 1; // fallback
-}
-
 bool is_valid_utf8_sequence(const unsigned char *seq, int len)
 {
     // this code is gpt-generated. I won't even try to explain it as it
