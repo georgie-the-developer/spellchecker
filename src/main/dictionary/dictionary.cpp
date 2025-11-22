@@ -39,8 +39,8 @@ void load_dict()
 
 bool check(char *word)
 {
-    int key = hash(word);                       // get the hash
-    hashtable_entry *current = dictionary[key]; // get the pointer to the first element
+    int key = hash_string(word, DICT_HASHTABLE_SIZE); // get the hash
+    hashtable_entry *current = dictionary[key];       // get the pointer to the first element
     while (current != NULL)
     {
         if (!strcmp(current->word, word)) // if the match is found, return true
@@ -58,24 +58,13 @@ void store(char *word)
         free(word);
         return;
     }
-    int key = hash(word);
+    int key = hash_string(word, DICT_HASHTABLE_SIZE);
     hashtable_entry *entry = (hashtable_entry *)malloc(sizeof(hashtable_entry));
     entry->word = word;
     entry->next = dictionary[key];
     dictionary[key] = entry;
 }
 
-// returns a hash for the provided word
-int hash(char *str)
-{
-    unsigned long hash = 5381;
-    char c;
-
-    while ((c = *str++))
-        hash = ((hash << 5) + hash) + c;
-
-    return hash % DICT_HASHTABLE_SIZE; // limit range
-}
 // debug-only
 void print_dict(void)
 {

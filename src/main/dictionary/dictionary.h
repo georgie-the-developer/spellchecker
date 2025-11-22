@@ -13,6 +13,7 @@ Is responsible for:
 
 #include <stdbool.h>
 #include <iostream>
+#include "../../helpers/hash_string/hash_string.h"
 
 extern const char *DEFAULT_DICTIONARY_FILENAME;
 extern const int DICT_HASHTABLE_SIZE;
@@ -35,8 +36,6 @@ void load_dict();
 void free_dict(void);
 
 void store(char *word);
-
-int hash(char *word); // returns a hash for a given word
 
 bool check(char *word); // checks whether the word is in dictionary or not
 
