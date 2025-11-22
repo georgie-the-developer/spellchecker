@@ -41,8 +41,9 @@ bool spellcheck(char *filename)
     if (error_count > MAX_ERROR_COUNT)
     {
         printf("...\n");
-        printf("There are more than %d misspellings in this text. The rest of the error messages were suppressed in order to keep the console clean\n\n", MAX_ERROR_COUNT);
+        printf("There are more than %d misspellings in this text. The rest of the error messages were suppressed in order to keep the console clean\n", MAX_ERROR_COUNT);
     }
+    printf("\n");
     printf("Number of misspellings: %d, of them unique: %d\n", error_count, misspelling_record_count());
     printf("Number of correctly spelled words: %d \n", word_count - error_count);
     printf("Total number of words: %d \n", word_count);
