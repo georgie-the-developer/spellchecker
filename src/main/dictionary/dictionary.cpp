@@ -39,16 +39,13 @@ void load_dict()
 
 bool check(char *word)
 {
-    int key = hash(word); // get the hash
-    if (hashtable[key] != NULL)
+    int key = hash(word);                      // get the hash
+    hashtable_entry *current = hashtable[key]; // get the pointer to the first element
+    while (current != NULL)
     {
-        hashtable_entry *current = hashtable[key]; // get the pointer to the first element
-        while (current != NULL)
-        {
-            if (!strcmp(current->word, word)) // if the match is found, return true
-                return true;
-            current = current->next; // go down the linked list
-        }
+        if (!strcmp(current->word, word)) // if the match is found, return true
+            return true;
+        current = current->next; // go down the linked list
     }
     return false;
 }
@@ -56,39 +53,16 @@ bool check(char *word)
 // stores a given word in the hashtable
 void store(char *word)
 {
+    if (check(word))
+    {
+        free(word);
+        return;
+    }
     int key = hash(word);
-    struct hashtable_entry *entry;
-    struct hashtable_entry *current;
-    if (hashtable[key] == NULL)
-    {
-        entry = (hashtable_entry *)malloc(sizeof(hashtable_entry));
-        entry->word = word;
-        entry->next = NULL;
-        hashtable[key] = entry;
-    }
-    else
-    {
-        current = hashtable[key];
-        // iterate over the linked list
-        while (true)
-        {
-            if (!strcmp(current->word, word))
-            {
-                free(word);
-                return; // return in case the word is already stored
-            }
-
-            if (current->next == NULL)
-                break;
-            else
-                current = current->next;
-        }
-        // only then initialize our variable
-        entry = (hashtable_entry *)malloc(sizeof(hashtable_entry));
-        entry->word = word;
-        entry->next = NULL;
-        current->next = entry;
-    }
+    hashtable_entry *entry = (hashtable_entry *)malloc(sizeof(hashtable_entry));
+    entry->word = word;
+    entry->next = hashtable[key];
+    hashtable[key] = entry;
 }
 
 // returns a hash for the provided word
