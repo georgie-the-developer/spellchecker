@@ -10,8 +10,8 @@ const char *DEFAULT_DICTIONARY_FILENAME = "..\\spellchecker\\resources\\default_
 const char *DEFAULT_DICTIONARY_FILENAME = "../spellchecker/resources/default_dictionary.txt";
 #endif
 
-const int HASH_SIZE = 100000;
-struct hashtable_entry *hashtable[HASH_SIZE];
+const int DICT_HASHTABLE_SIZE = 100000;
+struct hashtable_entry *dictionary[DICT_HASHTABLE_SIZE];
 
 void load_dict(const char *filename)
 {
@@ -39,8 +39,8 @@ void load_dict()
 
 bool check(char *word)
 {
-    int key = hash(word);                      // get the hash
-    hashtable_entry *current = hashtable[key]; // get the pointer to the first element
+    int key = hash(word);                       // get the hash
+    hashtable_entry *current = dictionary[key]; // get the pointer to the first element
     while (current != NULL)
     {
         if (!strcmp(current->word, word)) // if the match is found, return true
@@ -61,8 +61,8 @@ void store(char *word)
     int key = hash(word);
     hashtable_entry *entry = (hashtable_entry *)malloc(sizeof(hashtable_entry));
     entry->word = word;
-    entry->next = hashtable[key];
-    hashtable[key] = entry;
+    entry->next = dictionary[key];
+    dictionary[key] = entry;
 }
 
 // returns a hash for the provided word
@@ -74,17 +74,17 @@ int hash(char *str)
     while ((c = *str++))
         hash = ((hash << 5) + hash) + c;
 
-    return hash % 100000; // limit range
+    return hash % DICT_HASHTABLE_SIZE; // limit range
 }
 // debug-only
 void print_dict(void)
 {
     int counter = 0;
-    for (int i = 0; i < HASH_SIZE; i++)
+    for (int i = 0; i < DICT_HASHTABLE_SIZE; i++)
     {
-        if (hashtable[i] != NULL)
+        if (dictionary[i] != NULL)
         {
-            hashtable_entry *current = hashtable[i];
+            hashtable_entry *current = dictionary[i];
             while (current != NULL)
             {
                 // printf("%s at pos %d; ", current->word, i);
@@ -98,11 +98,11 @@ void print_dict(void)
 // hashtable freeing logic
 void free_dict(void)
 {
-    for (int i = 0; i < HASH_SIZE; i++)
+    for (int i = 0; i < DICT_HASHTABLE_SIZE; i++)
     {
-        if (hashtable[i] != NULL)
+        if (dictionary[i] != NULL)
         {
-            hashtable_entry *current = hashtable[i];
+            hashtable_entry *current = dictionary[i];
             while (current != NULL)
             {
                 hashtable_entry *next = current->next;

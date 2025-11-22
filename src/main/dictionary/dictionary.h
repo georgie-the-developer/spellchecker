@@ -15,7 +15,7 @@ Is responsible for:
 #include <iostream>
 
 extern const char *DEFAULT_DICTIONARY_FILENAME;
-extern const int HASH_SIZE;
+extern const int DICT_HASHTABLE_SIZE;
 
 struct hashtable_entry
 {
