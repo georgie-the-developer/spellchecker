@@ -27,5 +27,17 @@ int main(int argc, char **argv);
 
 // returns true if the spellcheck was successfull, and false in case of an error
 bool spellcheck(char *filename);
+typedef struct misspelling_entry
+{
+    char *word;
+    int count;
+    misspelling_entry *next;
+} misspelling_entry;
+
+int hash_misspelling(char *str);
+bool check_misspelling_record(char *word);
+void store_misspelling_record(char *word);
+void free_misspelling_table();
+int misspelling_record_count();
 
 #endif
