@@ -1,3 +1,13 @@
-- add 'most frequent misspellings' feature
-- test the program
-- fill in the documentation
+- fill in the documentation:
+
+  - attach some screenshots
+
+  - write a conclusion about:
+
+    - what is different from the initially documented idea
+    - implementation problems
+    - what I've learned throughout the course of making the project
+
+  - attach a github link to the file
+
+- write a README.md which describes how to build and run the program
