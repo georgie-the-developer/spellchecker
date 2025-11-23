@@ -32,7 +32,7 @@ bool spellcheck(char *filename)
             store_misspelling_record(word);
             if (error_count <= MAX_ERROR_COUNT)
             {
-                printf("Misspelling at line %d, col %d: %s\n", line, col - utf8_strlen(word), word);
+                printf("Misspelling at line %d, col %d: %s\n", line, col - utf8_strlen((unsigned char *)word), word);
             }
             error_count++;
         }

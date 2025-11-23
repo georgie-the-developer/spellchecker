@@ -1,3 +1,4 @@
+#include "./utf8_strlen.h"
 int detect_utf8_length(unsigned char c)
 {
     if ((c & 0x80) == 0x00)
@@ -11,7 +12,7 @@ int detect_utf8_length(unsigned char c)
     return 1; // fallback
 }
 
-int utf8_strlen(char *str)
+int utf8_strlen(unsigned char *str)
 {
     int len = 0;
     while ((*str) != '\0')

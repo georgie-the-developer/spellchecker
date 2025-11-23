@@ -116,7 +116,7 @@ folded_record *parse_casefold_record(FILE *file)
 // returns a spaceless line without a leading comment
 char *get_record_line(FILE *file)
 {
-    char buf[1];
+    unsigned char buf[1];
     bool is_comment = false;
     int capacity = 1;
     char *line = (char *)malloc(capacity);
