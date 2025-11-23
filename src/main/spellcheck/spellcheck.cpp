@@ -2,8 +2,8 @@
 
 const int MAX_ERROR_COUNT = 50;
 
-const int MISSPELL_HASHTABLE_SIZE = 10000;
-misspelling_entry *misspellings_hashtable[MISSPELL_HASHTABLE_SIZE];
+const int MISSPELL_HASHTABLE_SIZE = 1000000;
+static misspelling_entry *misspelling_hashtable[MISSPELL_HASHTABLE_SIZE];
 
 bool spellcheck(char *filename)
 {
@@ -55,8 +55,8 @@ bool spellcheck(char *filename)
 
 bool check_misspelling_record(char *word)
 {
-    int key = hash_string(word, MISSPELL_HASHTABLE_SIZE);     // get the hash
-    misspelling_entry *current = misspellings_hashtable[key]; // get the pointer to the first element
+    int key = hash_string(word, MISSPELL_HASHTABLE_SIZE);
+    misspelling_entry *current = misspelling_hashtable[key]; // get the pointer to the first element
     while (current != NULL)
     {
         if (!strcmp(current->word, word)) // if the match is found, return true
@@ -71,36 +71,28 @@ void store_misspelling_record(char *word)
 {
     int key = hash_string(word, MISSPELL_HASHTABLE_SIZE);
     if (check_misspelling_record(word))
-    {
-        misspelling_entry *current = misspellings_hashtable[key];
-        while (strcmp(current->word, word))
-            current = current->next;
-        current->count++;
         return;
-    }
     misspelling_entry *entry = (misspelling_entry *)malloc(sizeof(misspelling_entry));
-    int word_len = strlen(word);
-    entry->word = (char *)malloc(word_len);
-    memcpy(entry->word, word, word_len);
-    entry->count = 1;
-    entry->next = misspellings_hashtable[key];
-    misspellings_hashtable[key] = entry;
+    size_t len = strlen(word) + 1;
+    entry->word = (char *)malloc(len);
+    memcpy(entry->word, word, len);
+
+    entry->next = misspelling_hashtable[key];
+    misspelling_hashtable[key] = entry;
 }
 void free_misspelling_table()
 {
     for (int i = 0; i < MISSPELL_HASHTABLE_SIZE; i++)
     {
-        if (misspellings_hashtable[i] != NULL)
+        misspelling_entry *current = misspelling_hashtable[i];
+        while (current != NULL)
         {
-            misspelling_entry *current = misspellings_hashtable[i];
-            while (current != NULL)
-            {
-                misspelling_entry *next = current->next;
-                free(current->word);
-                free(current);
-                current = next;
-            }
+            misspelling_entry *next = current->next;
+            free(current->word);
+            free(current);
+            current = next;
         }
+        misspelling_hashtable[i] = NULL;
     }
 }
 
@@ -109,15 +101,13 @@ int misspelling_record_count()
     int count = 0;
     for (int i = 0; i < MISSPELL_HASHTABLE_SIZE; i++)
     {
-        if (misspellings_hashtable[i] != NULL)
+        misspelling_entry *current = misspelling_hashtable[i];
+        while (current != NULL)
         {
-            misspelling_entry *current = misspellings_hashtable[i];
-            while (current != NULL)
-            {
-                current = current->next;
-                count++;
-            }
+            current = current->next;
+            count++;
         }
     }
     return count;
 }
+// ./resources/polish_dictionary.txt

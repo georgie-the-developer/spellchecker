@@ -36,7 +36,6 @@ bool spellcheck(char *filename);
 typedef struct misspelling_entry
 {
     char *word;
-    int count;
     misspelling_entry *next;
 } misspelling_entry;
 
