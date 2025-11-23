@@ -119,23 +119,21 @@ char *get_word(FILE *file, int *line, int *col)
             continue;
         }
 
-        // folded version
         char *new_seq = case_fold(seq, char_len);
-        if (strcmp(new_seq, "–") && strcmp(new_seq, "—")) // only if the seq isnt one of the dashes
+        if (!strcmp(new_seq, "–") || !strcmp(new_seq, "—"))
         {
-            int new_len = strlen(new_seq);
-            capacity += new_len;
-            word = (char *)realloc(word, capacity);
-            handle_unexpected_nullptr(word, "realloc");
-            memcpy(word + capacity - new_len - 1, new_seq, new_len);
+            if (capacity == 1)
+            {
+                (*col)++;
+                continue;
+            }
         }
+        int new_len = strlen(new_seq);
+        capacity += new_len;
+        word = (char *)realloc(word, capacity);
+        handle_unexpected_nullptr(word, "realloc");
+        memcpy(word + capacity - new_len - 1, new_seq, new_len);
         free(new_seq);
-
-        // unfolded version
-        // capacity += char_len;
-        // word = (char *)realloc(word, capacity);
-        // handle_unexpected_nullptr(word, "realloc");
-        // memcpy(word + capacity - char_len - 1, seq, char_len);
 
         (*col)++;
     }
