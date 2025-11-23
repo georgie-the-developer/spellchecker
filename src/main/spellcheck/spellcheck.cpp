@@ -111,4 +111,3 @@ int misspelling_record_count()
     }
     return count;
 }
-// ./resources/polish_dictionary.txt
