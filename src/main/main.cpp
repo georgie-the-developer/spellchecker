@@ -53,6 +53,5 @@ int main(int argc, char **argv)
     }
     free_dict();
     free_casefold_table();
-    free_misspelling_table();
     return 0;
 }
