@@ -23,11 +23,11 @@ int main(int argc, char **argv)
     begin = clock();
     if (argc == 2)
     {
-        load_dict(argv[1]); // load_dict custom dictionary
+        load_dict(argv[1]); // load custom dictionary
     }
     else
     {
-        load_dict(); // load_dict default dictionary
+        load_dict(); // load default dictionary
     }
     end = clock();
     dictionary_load_time = (double)(end - begin) / CLOCKS_PER_SEC * 1000;
