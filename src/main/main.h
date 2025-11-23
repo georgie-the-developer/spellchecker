@@ -6,6 +6,10 @@
 #include <string.h>
 #include <stdlib.h>
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 #include "./spellcheck/spellcheck.h"
 
 #include "./dictionary/dictionary.h"

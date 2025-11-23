@@ -22,7 +22,7 @@ echo Compiling sources...
 REM Compile all .cpp files under %ROOT%\src
 for /r "%ROOT%\src" %%f in (*.cpp) do (
     echo Compiling %%f
-    cl /std:c++17 /W4 /O2 /EHsc /c "%%f" /Fo"%OBJ_DIR%\%%~nf.obj" >nul
+    cl /std:c++17 /W4 /O2 /EHsc /utf-8 /c "%%f" /Fo"%OBJ_DIR%\%%~nf.obj" >nul
 )
 
 echo Building object list...

@@ -1,6 +1,10 @@
 #include "./main.h"
 int main(int argc, char **argv)
 {
+#ifdef _WIN32
+    ConsoleOutputCP(CP_UTF8);
+    ConsoleCP(CP_UTF8);
+#endif
     char *filename;
 
     clock_t begin, end;
