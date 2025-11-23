@@ -65,21 +65,19 @@ bool set_casefold_table_record(folded_record *record)
 // returns a dynamically allocated record struct that contains parsed data from a single non-comment line
 folded_record *parse_casefold_record(FILE *file)
 {
-    folded_record *record = (folded_record *)malloc(sizeof(folded_record));
+    folded_record *record = (folded_record *)calloc(1, sizeof(folded_record));
     handle_unexpected_nullptr(record, "malloc");
 
-    record->cp_count = 1;
-
-    record->cps = (uint32_t *)malloc(sizeof(uint32_t) * record->cp_count);
-    handle_unexpected_nullptr(record->cps, "malloc");
+    record->cp_count = 0; // start at 0
+    record->cps = NULL;   // safe
 
     char *line = get_record_line(file);
     if (line == NULL)
     {
-        free(record->cps);
         free(record);
         return NULL;
     }
+
     char *current = strtok(line, ";");
     char column = 1;
     while (current != NULL)
@@ -94,25 +92,29 @@ folded_record *parse_casefold_record(FILE *file)
             column++;
             break;
         case 3:
+        {
             char *value_cp = strtok(current, " ");
             while (value_cp != NULL)
             {
+                // increment cp_count first, then realloc
+                record->cp_count++;
                 record->cps = (uint32_t *)realloc(record->cps, record->cp_count * sizeof(uint32_t));
                 handle_unexpected_nullptr(record->cps, "realloc");
 
                 record->cps[record->cp_count - 1] = (uint32_t)strtol(value_cp, NULL, 16);
-                record->cp_count++;
-
                 value_cp = strtok(NULL, " ");
             }
             break;
         }
+        }
         current = strtok(NULL, ";");
     }
+
+    record->next = NULL; // always initialize
     free(line);
     return record;
-    // split the line by ';' and ' '
 }
+
 // returns a spaceless line without a leading comment
 char *get_record_line(FILE *file)
 {
