@@ -48,6 +48,7 @@ bool spellcheck(char *filename)
     printf("Number of correctly spelled words: %d \n", word_count - error_count);
     printf("Total number of words: %d \n", word_count);
 
+    free_misspelling_table();
     fclose(file);
 
     return true;
