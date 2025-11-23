@@ -11,7 +11,7 @@ const char *DEFAULT_DICTIONARY_FILENAME = "../spellchecker/resources/default_dic
 #endif
 
 const int DICT_HASHTABLE_SIZE = 100000;
-struct hashtable_entry *dictionary[DICT_HASHTABLE_SIZE];
+struct hashtable_entry *dictionary[DICT_HASHTABLE_SIZE] = {NULL};
 
 void load_dict(const char *filename)
 {

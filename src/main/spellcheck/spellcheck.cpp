@@ -3,7 +3,7 @@
 const int MAX_ERROR_COUNT = 50;
 
 const int MISSPELL_HASHTABLE_SIZE = 1000000;
-static misspelling_entry *misspelling_hashtable[MISSPELL_HASHTABLE_SIZE];
+static misspelling_entry *misspelling_hashtable[MISSPELL_HASHTABLE_SIZE] = {NULL};
 
 bool spellcheck(char *filename)
 {

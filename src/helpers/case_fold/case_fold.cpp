@@ -8,7 +8,7 @@ const char *CASEFOLD_FILE = "../spellchecker/src/helpers/case_fold/case_folding.
 #endif
 
 static const short CASEFOLD_TABLE_SIZE = 1000;
-static folded_record *casefold_table[CASEFOLD_TABLE_SIZE];
+static folded_record *casefold_table[CASEFOLD_TABLE_SIZE] = {NULL};
 
 void free_casefold_table()
 {
