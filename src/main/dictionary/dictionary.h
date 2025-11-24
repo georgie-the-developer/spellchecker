@@ -23,13 +23,6 @@ struct hashtable_entry
     char *word;
     struct hashtable_entry *next;
 };
-struct checkResult
-{
-    int line;
-    int ch_pos;
-    bool correct;
-    int *word;
-};
 /* !! OVERLOADING EXAMPLE !! */
 void load_dict(const char *filename); // loads a custom dictionary into RAM
 void load_dict();
