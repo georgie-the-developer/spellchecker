@@ -33,9 +33,6 @@
 8. The compiled program will appear in `.\bin\` as `main.exe`.
 
 ---
-Here’s a clearer, cleaner version:
-
----
 
 ## Running the Program
 
@@ -58,4 +55,5 @@ If more than one argument is provided, the program behaves as if none were given
 If no argument is passed, it loads the default dictionary.
 
 ---
+
 
